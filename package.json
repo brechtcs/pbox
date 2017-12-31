@@ -1,4 +1,8 @@
 {
+  "name": "pbox",
+  "version": "1.0.1",
+  "description": "Parser for concatenated Jekyll posts",
+  "main": "index.js",
   "scripts": {
     "test": "standard && tape test"
   },
@@ -8,5 +12,14 @@
   "devDependencies": {
     "standard": "^10.0.3",
     "tape": "^4.8.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/pamphlets/pbox/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pamphlets/pbox"
+  },
+  "author": "Brecht Savelkoul <brecht@pamphlets.me>",
+  "license": "Apache-2.0"
 }
