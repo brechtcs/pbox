@@ -1,6 +1,6 @@
 {
   "name": "pbox",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Parser for concatenated Jekyll posts",
   "main": "index.js",
   "scripts": {
