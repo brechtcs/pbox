@@ -6,6 +6,7 @@ module.exports.parse = function (text, opts) {
     opts = {}
   }
   assert.ok(!opts.props || (typeof opts.props === 'object' && !Array.isArray(opts.props)), '`props` should be an object')
+  assert.ok(!opts.sort || typeof opts.sort === 'function', '`sort` should be a function')
 
   var pamphlets = text.split(/---\n/).reduce(function (list, val) {
     try {
@@ -27,7 +28,8 @@ module.exports.parse = function (text, opts) {
     return list
   }, [])
 
-  return opts.props ? pamphlets.map(transformProps(opts.props)) : pamphlets
+  var transformed = opts.props ? pamphlets.map(transformProps(opts.props)) : pamphlets
+  return opts.sort ? transformed.sort(opts.sort) : transformed
 }
 
 function transformProps (transforms) {

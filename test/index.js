@@ -21,6 +21,18 @@ test('basic parser', function (t) {
   })
 })
 
+test('sort pamphlets', function (t) {
+  function sort (a, b) {
+    return a.title > b.title ? -1 : b.title > a.title ? 1 : 0
+  }
+
+  var parsed = pbox.parse(lorem, {sort})
+  t.ok(parsed, 'parser returns')
+  t.equal(parsed[0].title, 'Second', 'first title')
+  t.equal(parsed[1].title, 'First', 'second title')
+  t.end()
+})
+
 test('transform properties', function (t) {
   var props = {
     title: (title, i) => `${i + 1}. ${title}`,
