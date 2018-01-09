@@ -8,7 +8,13 @@ module.exports.parse = function (text, opts) {
   assert.ok(!opts.props || (typeof opts.props === 'object' && !Array.isArray(opts.props)), '`props` should be an object')
   assert.ok(!opts.sort || typeof opts.sort === 'function', '`sort` should be a function')
 
-  var pamphlets = text.split(/---\n/).reduce(function (list, val) {
+  var parsed = parsePbox(text)
+  var transformed = opts.props ? parsed.map(transformProps(opts.props)) : parsed
+  return opts.sort ? transformed.sort(opts.sort) : transformed
+}
+
+function parsePbox (text) {
+  return text.split(/---\n/).reduce(function (list, val) {
     try {
       var part = yaml.safeLoad(val)
 
@@ -27,9 +33,6 @@ module.exports.parse = function (text, opts) {
     }
     return list
   }, [])
-
-  var transformed = opts.props ? pamphlets.map(transformProps(opts.props)) : pamphlets
-  return opts.sort ? transformed.sort(opts.sort) : transformed
 }
 
 function transformProps (transforms) {
