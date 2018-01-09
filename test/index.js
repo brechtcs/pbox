@@ -3,12 +3,13 @@ var path = require('path')
 var pbox = require('../')
 var test = require('tape')
 
-test('yep', function (t) {
-  var text = fs.readFileSync(path.join(__dirname, 'lorem.md'), 'utf-8')
-  var parsed = pbox.parse(text)
+var lorem = fs.readFileSync(path.join(__dirname, 'lorem.md'), 'utf-8')
+
+test('basic parser', function (t) {
+  var parsed = pbox.parse(lorem)
 
   t.plan(7)
-  t.ok(parsed, 'text parser returns')
+  t.ok(parsed, 'parser returns')
   t.equal(parsed.length, 2, 'two articles found')
   t.equal(parsed[0].title, 'First', 'first title')
   t.equal(parsed[1].title, 'Second', 'second title')
@@ -18,4 +19,30 @@ test('yep', function (t) {
       t.ok(section, `section ${j + 1} of post ${i + 1}`)
     })
   })
+})
+
+test('transform properties', function (t) {
+  var props = {
+    title: (title, i) => `${i + 1}. ${title}`,
+    content: (content) => content.join('\n---')
+  }
+
+  var parsed = pbox.parse(lorem, {props})
+  t.ok(parsed, 'parser returns')
+  t.equal(parsed[0].title, '1. First', 'first transformed title')
+  t.equal(parsed[1].title, '2. Second', 'second transformed title')
+  t.equal(typeof parsed[1].content, 'string', 'second content joined')
+  t.end()
+})
+
+test('drop properties', function (t) {
+  var props = {
+    title: false
+  }
+
+  var parsed = pbox.parse(lorem, {props})
+  t.ok(parsed, 'parser returns')
+  t.equal(parsed[0].title, undefined, 'drop first title')
+  t.equal(parsed[1].title, undefined, 'drop second title')
+  t.end()
 })
