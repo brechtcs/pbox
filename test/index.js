@@ -54,6 +54,7 @@ test('drop properties', function (t) {
 
   var parsed = pbox.parse(lorem, {props})
   t.ok(parsed, 'parser returns')
+  t.equal(parsed[0].author, 'Someone', 'keep first author')
   t.equal(parsed[0].title, undefined, 'drop first title')
   t.equal(parsed[1].title, undefined, 'drop second title')
   t.end()

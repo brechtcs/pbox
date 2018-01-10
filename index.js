@@ -46,6 +46,6 @@ function transformProps (transforms) {
         transformed[prop] = transforms[prop] === false ? undefined : pamphlet[prop]
       }
     }
-    return transformed
+    return Object.assign(pamphlet, transformed)
   }
 }
