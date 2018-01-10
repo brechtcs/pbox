@@ -7,7 +7,7 @@
     "test": "standard && tape test"
   },
   "dependencies": {
-    "js-yaml": "^3.10.0"
+    "js-yaml": "3.10.0"
   },
   "devDependencies": {
     "standard": "^10.0.3",

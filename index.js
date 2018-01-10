@@ -1,3 +1,4 @@
+var YAMLException = require('js-yaml/lib/js-yaml/exception')
 var assert = require('assert')
 var yaml = require('js-yaml')
 
@@ -22,7 +23,7 @@ function parsePbox (text) {
         part.content = []
         list.push(part)
       } else if (typeof part === 'string') {
-        list[list.length - 1].content.push(part)
+        throw new YAMLException('String input')
       }
     } catch (err) {
       if (err.name === 'YAMLException') {
