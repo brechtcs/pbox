@@ -6,7 +6,7 @@ module.exports.parse = function (text, opts) {
     opts = {}
   }
   assert.ok(!opts.props || (typeof opts.props === 'object' && !Array.isArray(opts.props)), '`props` should be an object')
-  assert.ok(!opts.sort || typeof opts.sort === 'function', '`sort` should be a function')
+  assert.ok(!opts.sort || typeof opts.sort === 'function' || typeof opts.sort === 'boolean', '`sort` should be a function or boolean')
 
   var parsed = parsePbox(text)
   var transformed = opts.props ? parsed.map(transformProps(opts.props)) : parsed
