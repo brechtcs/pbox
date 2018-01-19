@@ -47,15 +47,18 @@ test('transform properties', function (t) {
   t.end()
 })
 
-test('drop properties', function (t) {
+test('set & drop properties', function (t) {
   var props = {
-    title: false
+    title: undefined,
+    val: 'value'
   }
 
   var parsed = pbox.parse(lorem, {props})
   t.ok(parsed, 'parser returns')
   t.equal(parsed[0].author, 'Someone', 'keep first author')
+  t.equal(parsed[0].val, 'value', 'set first value')
   t.equal(parsed[0].title, undefined, 'drop first title')
+  t.equal(parsed[1].val, 'value', 'set second value')
   t.equal(parsed[1].title, undefined, 'drop second title')
   t.end()
 })

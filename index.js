@@ -1,4 +1,3 @@
-var YAMLException = require('js-yaml/lib/js-yaml/exception')
 var assert = require('assert')
 var yaml = require('js-yaml')
 
@@ -23,7 +22,7 @@ function parsePbox (text) {
         part.content = []
         list.push(part)
       } else if (typeof part === 'string') {
-        throw new YAMLException('String input')
+        list[list.length - 1].content.push(val)
       }
     } catch (err) {
       if (err.name === 'YAMLException') {
@@ -44,7 +43,7 @@ function transformProps (transforms) {
       if (typeof transforms[prop] === 'function') {
         transformed[prop] = transforms[prop](pamphlet[prop], i)
       } else {
-        transformed[prop] = transforms[prop] === false ? undefined : pamphlet[prop]
+        transformed[prop] = transforms[prop]
       }
     }
     return Object.assign(pamphlet, transformed)

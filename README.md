@@ -25,7 +25,6 @@ title: First post
 
 Some text.
 
-
 ---
 title: Second post
 ---
